@@ -1,1 +1,2 @@
-const Tai: String = "String" ;
+const Tai: String = "Tài đẹp trai" ;
+console.log(Tai);
