@@ -22,7 +22,7 @@ client.connect((err: any) => {
 
 export async function executeQuery(sqlQuery: string, params: any[]) {
   const query = await client.query(sqlQuery, params);
-  console.log("Executed query successfully!")
+  return query;
 };
 
 export  async function getAll(sqlQuery: string) {

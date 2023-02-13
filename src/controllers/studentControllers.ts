@@ -24,7 +24,7 @@ class studentControllers {
     let result = {
       id: raw.id,
       code: raw.code,
-      name: raw.name,
+      studentName: raw.name,
       phone_number: raw.phone_number,
       gender: raw.gender
     }
@@ -34,8 +34,9 @@ class studentControllers {
   async updateStudentById(req: Request, res: Response){
     let id: string = req.params.id;
     let payload: IStudent = req.body;
-    let studentDetails: string = await studentRepository.handlerStudentById(id);
-    await studentRepository.handlerUpdateStudent(id, payload, studentDetails)
+    //let studentDetails: string = await studentRepository.handlerStudentById(id);
+    let raw = await studentRepository.handlerUpdateStudent(id, payload);
+    res.send(raw);
   }
 }
 

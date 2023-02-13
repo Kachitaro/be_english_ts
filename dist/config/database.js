@@ -36,7 +36,7 @@ exports.client.connect((err) => {
 function executeQuery(sqlQuery, params) {
     return __awaiter(this, void 0, void 0, function* () {
         const query = yield exports.client.query(sqlQuery, params);
-        console.log("Executed query successfully!");
+        return query;
     });
 }
 exports.executeQuery = executeQuery;

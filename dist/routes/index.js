@@ -8,7 +8,7 @@ function router(app) {
     //student
     app.get("/student", studentControllers_1.default.getStudentList);
     app.get("/studentById/:id", studentControllers_1.default.getStudentById);
-    app.get("/updateById/:id", studentControllers_1.default.updateStudentById);
+    app.put("/updateStudentById/:id", studentControllers_1.default.updateStudentById);
 }
 ;
 exports.default = router;

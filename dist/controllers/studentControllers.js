@@ -38,7 +38,7 @@ class studentControllers {
             let result = {
                 id: raw.id,
                 code: raw.code,
-                name: raw.name,
+                studentName: raw.name,
                 phone_number: raw.phone_number,
                 gender: raw.gender
             };
@@ -47,8 +47,11 @@ class studentControllers {
     }
     updateStudentById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.params.id);
-            console.log(req.body.name);
+            let id = req.params.id;
+            let payload = req.body;
+            //let studentDetails: string = await studentRepository.handlerStudentById(id);
+            let raw = yield studentRepository_1.default.handlerUpdateStudent(id, payload);
+            res.send(raw);
         });
     }
 }
