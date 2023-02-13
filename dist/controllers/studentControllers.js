@@ -17,8 +17,8 @@ const studentRepository_1 = __importDefault(require("../repositories/studentRepo
 class studentControllers {
     getStudentList(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const raw = yield studentRepository_1.default.getAll();
-            const result = raw.map((item) => {
+            let raw = yield studentRepository_1.default.handlerAllStudent();
+            let result = raw.map((item) => {
                 return {
                     id: item.id,
                     studentName: item.name,
@@ -27,6 +27,28 @@ class studentControllers {
                 };
             });
             res.send(result);
+        });
+    }
+    getStudentById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let raw = yield studentRepository_1.default.handlerStudentById(req.params.id);
+            if (!raw) {
+                return res.send("Does not exist in the student list !");
+            }
+            let result = {
+                id: raw.id,
+                code: raw.code,
+                name: raw.name,
+                phone_number: raw.phone_number,
+                gender: raw.gender
+            };
+            res.send(result);
+        });
+    }
+    updateStudentById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params.id);
+            console.log(req.body.name);
         });
     }
 }
