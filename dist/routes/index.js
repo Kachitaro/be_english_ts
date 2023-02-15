@@ -8,8 +8,9 @@ function router(app) {
     //student
     app.get("/student", studentControllers_1.default.getStudentList);
     app.get("/studentById/:id", studentControllers_1.default.getStudentById);
+    app.post("/createStudent", studentControllers_1.default.createStudent);
     app.put("/updateStudentById/:id", studentControllers_1.default.updateStudentById);
-    app.get("/deleteStudent/:id", studentControllers_1.default.deleteStudentById);
+    app.delete("/deleteStudent/:id", studentControllers_1.default.deleteStudentById);
 }
 ;
 exports.default = router;

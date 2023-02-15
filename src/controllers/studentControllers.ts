@@ -1,3 +1,4 @@
+import { IUsers } from './../models/usersInterface';
 import { IStudent } from './../models/studentInterface';
 import { Request, Response } from "express";
 //import { IStudent } from "../models/studentInterface";
@@ -39,7 +40,6 @@ class studentControllers {
   }
 
   async deleteStudentById(req: Request, res: Response){
-    let id: string = req.params.id;
     let raw = await studentRepository.handlerStudentById(req.params.id);
     let result = await studentRepository.handlerDeleteStudent(raw.student_id);
     res.send(result.map((item: any) => {
@@ -50,6 +50,13 @@ class studentControllers {
         phone: item.phone,
       }
     }));
+  }
+
+  async createStudent(req: Request, res: Response){
+    let payload: IStudent = req.body;
+    let password: IUsers = req.body;
+    let raw = await studentRepository.handlerCreateStudent(payload, password);
+    res.send(raw);
   }
 }
 

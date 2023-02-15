@@ -55,10 +55,24 @@ class studentControllers {
     }
     deleteStudentById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let id = req.params.id;
             let raw = yield studentRepository_1.default.handlerStudentById(req.params.id);
-            let getIdUser = studentRepository_1.default.handlerDeleteStudent(id, raw.student_id);
-            res.send('ok');
+            let result = yield studentRepository_1.default.handlerDeleteStudent(raw.student_id);
+            res.send(result.map((item) => {
+                return {
+                    id: item.id,
+                    studentName: item.name,
+                    email: item.email,
+                    phone: item.phone,
+                };
+            }));
+        });
+    }
+    createStudent(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let payload = req.body;
+            let password = req.body;
+            let raw = yield studentRepository_1.default.handlerCreateStudent(payload, password);
+            res.send(raw);
         });
     }
 }

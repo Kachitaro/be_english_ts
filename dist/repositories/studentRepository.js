@@ -18,11 +18,24 @@ class studentRepository {
         (0, database_1.executeQuery)(query, params);
         return this.handlerStudentById(id);
     }
-    handlerCreateStudent() {
+    handlerCreateStudent(payloadStudent, payloadUser) {
+        let { email, name, phone_number, gender, address } = payloadStudent;
+        let { password } = payloadUser;
+        let paramsUser = [email, password];
+        let paramsStudent = [name, phone_number, gender, address, email];
+        let queryCUser = `WITH new_user AS (INSERT INTO users (username, password)VALUES ($1, $2) RETURNING id) INSERT INTO student (email,student_id)VALUES ($1,(SELECT id FROM new_user))`;
+        let queryCStudent = `Update student set name = $1, phone_number = $2, gender = $3, address = $4 WHERE email = $5 `;
+        (0, database_1.executeQuery)(queryCUser, paramsUser);
+        (0, database_1.executeQuery)(queryCStudent, paramsStudent);
+        return this.handlerAllStudent();
     }
-    handlerDeleteStudent(id, student_id) {
-        console.log("lay id cua student", id);
-        console.log("lay student id trong ban user", student_id);
+    handlerDeleteStudent(student_id) {
+        let query = `DELETE FROM student as s using users as u where s.student_id = u.id and s.student_id = $1`;
+        let queryInUser = `DELETE FROM users where id = $1`;
+        let params = [student_id];
+        (0, database_1.executeQuery)(query, params);
+        (0, database_1.executeQuery)(queryInUser, params);
+        return this.handlerAllStudent();
     }
 }
 exports.default = new studentRepository();
