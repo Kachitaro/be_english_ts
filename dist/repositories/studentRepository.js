@@ -20,7 +20,9 @@ class studentRepository {
     }
     handlerCreateStudent() {
     }
-    handlerDeleteStudent() {
+    handlerDeleteStudent(id, student_id) {
+        console.log("lay id cua student", id);
+        console.log("lay student id trong ban user", student_id);
     }
 }
 exports.default = new studentRepository();

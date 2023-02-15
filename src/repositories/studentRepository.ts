@@ -25,8 +25,13 @@ class studentRepository{
 
   
 
-  handlerDeleteStudent(){
-
+  handlerDeleteStudent(student_id: string){
+    let query = `DELETE FROM student as s using users as u where s.student_id = u.id and s.id = $1`;
+    let queryInUser = `DELETE FROM users where id = $1`
+    let params = [student_id]
+    executeQuery(query, params);
+    executeQuery(queryInUser, params);
+    return this.handlerAllStudent();
   }
 
 }

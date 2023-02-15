@@ -40,7 +40,7 @@ class studentControllers {
                 code: raw.code,
                 studentName: raw.name,
                 phone_number: raw.phone_number,
-                gender: raw.gender
+                gender: raw.gender,
             };
             res.send(result);
         });
@@ -49,9 +49,16 @@ class studentControllers {
         return __awaiter(this, void 0, void 0, function* () {
             let id = req.params.id;
             let payload = req.body;
-            //let studentDetails: string = await studentRepository.handlerStudentById(id);
             let raw = yield studentRepository_1.default.handlerUpdateStudent(id, payload);
             res.send(raw);
+        });
+    }
+    deleteStudentById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let id = req.params.id;
+            let raw = yield studentRepository_1.default.handlerStudentById(req.params.id);
+            let getIdUser = studentRepository_1.default.handlerDeleteStudent(id, raw.student_id);
+            res.send('ok');
         });
     }
 }

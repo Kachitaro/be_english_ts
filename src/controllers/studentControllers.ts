@@ -26,7 +26,7 @@ class studentControllers {
       code: raw.code,
       studentName: raw.name,
       phone_number: raw.phone_number,
-      gender: raw.gender
+      gender: raw.gender,
     }
     res.send(result);
   }
@@ -34,9 +34,22 @@ class studentControllers {
   async updateStudentById(req: Request, res: Response){
     let id: string = req.params.id;
     let payload: IStudent = req.body;
-    //let studentDetails: string = await studentRepository.handlerStudentById(id);
     let raw = await studentRepository.handlerUpdateStudent(id, payload);
     res.send(raw);
+  }
+
+  async deleteStudentById(req: Request, res: Response){
+    let id: string = req.params.id;
+    let raw = await studentRepository.handlerStudentById(req.params.id);
+    let result = await studentRepository.handlerDeleteStudent(raw.student_id);
+    res.send(result.map((item: any) => {
+      return{
+        id: item.id,
+        studentName: item.name,
+        email: item.email,
+        phone: item.phone,
+      }
+    }));
   }
 }
 
